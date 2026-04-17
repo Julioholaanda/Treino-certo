@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Treino Semanal</title>
+  <style>
+    body {
+      background: #0f172a;
+      color: white;
+      font-family: Arial;
+      padding: 20px;
+    }
+    h1 { text-align: center; }
+    .day {
+      background: #1e293b;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .done {
+      background: #22c55e;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🏋️ Treino Semanal</h1>
+
+<div id="app"></div>
+
+<script>
+const treinos = [
+  ["Segunda", "Peito"],
+  ["Terça", "Perna (anterior)"],
+  ["Quarta", "Costas"],
+  ["Quinta", "Perna (posterior)"],
+  ["Sexta", "Braço (bíceps + tríceps)"],
+  ["Sábado", "Ombro (isolado)"],
+  ["Domingo", "Cardio (30min corrida)"]
+];
+
+const pessoas = ["Júlio", "Claudinei"];
+
+const app = document.getElementById("app");
+
+treinos.forEach((t, i) => {
+  const div = document.createElement("div");
+  div.className = "day";
+
+  const titulo = document.createElement("h3");
+  titulo.innerText = `${t[0]} - ${t[1]}`;
+  div.appendChild(titulo);
+
+  pessoas.forEach(p => {
+    const key = `${p}-${i}`;
+    const btn = document.createElement("button");
+
+    btn.innerText = p;
+    if (localStorage.getItem(key)) {
+      btn.classList.add("done");
+    }
+
+    btn.onclick = () => {
+      localStorage.setItem(key, true);
+      btn.classList.add("done");
+    };
+
+    div.appendChild(btn);
+  });
+
+  app.appendChild(div);
+});
+</script>
+
+</body>
+</html>
